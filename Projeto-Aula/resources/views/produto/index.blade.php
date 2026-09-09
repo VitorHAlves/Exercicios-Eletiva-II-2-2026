@@ -33,7 +33,7 @@
                     <td>{{$p->estoque}}</td>
                     <td class="d-flex gap-2">
                         <a href="/produto/{{ $p->id }}/edit" class="btn btn-sm btn-warning">Editar</a>
-                        <a href="/produto/{{ $p->id }}/show" class="btn btn-sm btn-info">Consultar</a>
+                        <a href="/produto/{{ $p->id }}" class="btn btn-sm btn-info">Consultar</a>
                     </td>
                 </tr>
                 @endforeach

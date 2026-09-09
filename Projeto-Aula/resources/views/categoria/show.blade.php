@@ -16,7 +16,7 @@
             @method('DELETE')
             <div class="mb-3">
                 <label for="nome" class="form-label">Nome</label>
-                <input type="text" id="nome" name="nome" class="form-control" disabled required="" value = "{{$categoria->nome}">
+                <input type="text" id="nome" name="nome" class="form-control" disabled required="" value = "{{ $categoria->nome }}">
             </div>
             <div class="mb-3">
                 <label for="descricao" class="form-label">Descrição</label>

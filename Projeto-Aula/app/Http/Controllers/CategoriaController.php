@@ -30,9 +30,9 @@ class CategoriaController extends Controller
     public function store(Request $request)
     {
         if(Categoria::create($request->all()))
-            return redirect()->route('/categorias')->with('mensagem','Categoria inserida com sucesso!');
+            return redirect()->route('categorias.index')->with('mensagem','Categoria inserida com sucesso!');
         else
-            return redirect()->route('/categorias')->with('mensagem','Erro ao inserir a categoria!');
+            return redirect()->route('categorias.index')->with('mensagem','Erro ao inserir a categoria!');
     }
 
     /**
@@ -74,9 +74,9 @@ class CategoriaController extends Controller
     {
         $categoria = Categoria::FindOrFail($id);
         if($categoria->delete())
-            return redirect()->route('/categorias')->with('mensagem','Categoria Excluida!');
+            return redirect()->route('categorias.index')->with('mensagem','Categoria Excluida!');
         else
-        return redirect()->route('/categorias')->with('mensagem','Erro ao excluir a categoria!');
+            return redirect()->route('categorias.index')->with('mensagem','Erro ao excluir a categoria!');
         
         
     }

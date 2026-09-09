@@ -41,15 +41,16 @@ class ProdutoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Produto $produto)
+    public function show(int $id)
     {
-        //
+        $produto = Produto::findOrFail($id);
+        return view('produto.show',compact('produto'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit( $id)
+    public function edit($id)
     {
         $produto = Produto::findOrFail($id);
         $categorias = Categoria::all();
@@ -72,8 +73,13 @@ class ProdutoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Produto $produto)
+    public function destroy(int $id)
     {
-        //
+        $produto = Produto::findOrFail($id);
+        if($produto->delete())
+            return redirect()->route('produto.index')->with('mensagem','Produto excluído!');
+        else
+            return redirect()->route('produto.index')->with('mensagem','Erro ao excluir o produto!');
+        
     }
 }
