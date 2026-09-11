@@ -28,10 +28,8 @@ class CenarioController extends Controller
      */
     public function store(Request $request)
     {
-        if(session(['cookie_escolha'=> $request->input('escolha')]))
-            return redirect()->route('cenario.reflexao')->with('mensagem','Escolha registrada!');
-        else
-            return redirect()->route('cenario.index')->with('mensagem','Erro ao registrar a escolha!');
+        session(['cookie_escolha'=> $request->input('escolha')]);
+        return redirect()->route('cenario.reflexao')->with('mensagem','Escolha registrada!');
         
     }
 
@@ -65,5 +63,45 @@ class CenarioController extends Controller
     public function destroy(Cenario $cenario)
     {
         //
+    }
+        /**
+     * Show the "Configurar preferências" screen.
+     */
+    public function configuracoes()
+    {
+        return view('cenario.configuracoes');
+    }
+
+    /**
+     * Store the detailed preferences chosen inside configurações.
+     */
+    public function salvarConfiguracoes(Request $request)
+    {
+        session(['cookie_preferencias' => $request->all()]);
+        return redirect()->route('cenario.index')->with('mensagem', 'Preferências salvas!');
+    }
+
+    /**
+     * Display the reflection screen (question after the choice).
+     */
+    public function reflexao()
+    {
+        return view('cenario.reflexao');
+    }
+
+    /**
+     * Display the explanatory screen.
+     */
+    public function explicacao()
+    {
+        return view('cenario.explicacao');
+    }
+
+    /**
+     * Display the final comparison between interfaces.
+     */
+    public function comparacao()
+    {
+        return view('cenario.comparacao');
     }
 }
