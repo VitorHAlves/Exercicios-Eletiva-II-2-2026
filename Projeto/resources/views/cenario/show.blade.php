@@ -69,16 +69,16 @@
             'referencia' => [
                 ['label' => 'Aceitar', 'valor' => 'aceitar', 'destaque' => 'normal'],
                 ['label' => 'Rejeitar', 'valor' => 'rejeitar', 'destaque' => 'normal'],
-                ['label' => 'Configurar', 'link' => route('cenario.configuracoes'), 'destaque' => 'normal'],
+                ['label' => 'Configurar', 'link' => route('cenario.configuracoes',['variacao'=>$variacao]),'destaque' => 'normal'],
             ],
             'A' => [
                 ['label' => 'Aceitar Tudo', 'valor' => 'aceitar', 'destaque' => 'alto'],
                 ['label' => 'Rejeitar', 'valor' => 'rejeitar', 'destaque' => 'baixo'],
-                ['label' => 'Configurar', 'link' => route('cenario.configuracoes'), 'destaque' => 'baixo'],
+                ['label' => 'Configurar', 'link' => route('cenario.configuracoes',['variacao'=> $variacao]),'destaque' => 'baixo'],
             ],
             default => [],
         };
     @endphp
 
-    <x-cookie-banner :botoes="$botoes" :variacao="$variacao"/>//passo a variacao na sessao junto com a esoclha
+    <x-cookie-banner :botoes="$botoes" :variacao="$variacao"/>{{--passo a variacao na sessao junto com a esoclha--}}
 @endsection

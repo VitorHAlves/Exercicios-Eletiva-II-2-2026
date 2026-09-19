@@ -68,9 +68,10 @@ class CenarioController extends Controller
         /**
      * Show the "Configurar preferências" screen.
      */
-    public function configuracoes()
+    public function configuracoes(Request $request)
     {
-        return view('cenario.configuracoes');
+        $variacao = $request->query('variacao','referencia');
+        return view('cenario.configuracoes',compact('variacao'));
     }
 
     /**
@@ -78,8 +79,11 @@ class CenarioController extends Controller
      */
     public function salvarConfiguracoes(Request $request)
     {
+        session(['cookie_variacao' => $request->input('variacao')]);
+        session(['cookie_escolha' => 'configurado']);
         session(['cookie_preferencias' => $request->all()]);
-        return redirect()->route('cenario.index')->with('mensagem', 'Preferências salvas!');
+
+        return redirect()->route('cenario.reflexao')->with('mensagem', 'Preferências salvas!');
     }
 
     /**
