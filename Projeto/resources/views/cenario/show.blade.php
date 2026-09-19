@@ -80,5 +80,5 @@
         };
     @endphp
 
-    <x-cookie-banner :botoes="$botoes" />
+    <x-cookie-banner :botoes="$botoes" :variacao="$variacao"/>//passo a variacao na sessao junto com a esoclha
 @endsection

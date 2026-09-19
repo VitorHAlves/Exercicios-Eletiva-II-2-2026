@@ -29,6 +29,7 @@ class CenarioController extends Controller
     public function store(Request $request)
     {
         session(['cookie_escolha'=> $request->input('escolha')]);
+        session(['cookie_variacao'=> $request->input('variacao')]);//salvo a variacao junto com a escolha
         return redirect()->route('cenario.reflexao')->with('mensagem','Escolha registrada!');
         
     }
@@ -98,7 +99,8 @@ class CenarioController extends Controller
      */
     public function explicacao()
     {
-        return view('cenario.explicacao');
+        $variacao = session('cookie_variacao','referencia');//busco a informação da sessão
+        return view('cenario.explicacao',compact('variacao'));
     }
 
     /**

@@ -1,4 +1,4 @@
-@props(['botoes'])
+@props(['botoes','variacao'])
 
 <div class="cookie-banner">
     <div class="d-flex align-items-start gap-3">
@@ -22,6 +22,7 @@
                     @else
                         <form action="{{ route('cenario.store') }}" method="POST" style="display:inline">
                             @csrf
+                            <input type="hidden" name="variacao" value="{{ $variacao }}">{{--recebo e envio junto com o form--}}
                             <button type="submit" name="escolha" value="{{ $botao['valor'] }}" class="btn-{{ $botao['destaque'] ?? 'normal' }}">
                                 {{ $botao['label'] }}
                             </button>
