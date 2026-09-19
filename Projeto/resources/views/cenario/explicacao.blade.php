@@ -50,7 +50,7 @@
 
             <div class="border rounded-3 p-3 mb-3 bg-white">
                 <p class="text-muted small mb-2">Representação do banner que você utilizou:</p>
-                <div class="d-flex gap-2 flex-wrap">
+                <div class="cookie-banner-botoes {{ $variacao === 'A' ? 'banner-empilhado': ''}}">
                     @foreach ($info['preview'] as $botao)
                         <span class="{{ $botao['classe'] }}">{{ $botao['label'] }}</span>
                     @endforeach

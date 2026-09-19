@@ -20,7 +20,7 @@
                             {{ $botao['label'] }}
                         </a>
                     @else
-                        <form action="{{ route('cenario.store') }}" method="POST" style="display:inline">
+                        <form action="{{ route('cenario.store') }}" method="POST" style="display:contents">
                             @csrf
                             <input type="hidden" name="variacao" value="{{ $variacao }}">{{--recebo e envio junto com o form--}}
                             <button type="submit" name="escolha" value="{{ $botao['valor'] }}" class="btn-{{ $botao['destaque'] ?? 'normal' }}">

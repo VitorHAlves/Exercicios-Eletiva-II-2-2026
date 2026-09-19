@@ -79,6 +79,7 @@
             default => [],
         };
     @endphp
-
-    <x-cookie-banner :botoes="$botoes" :variacao="$variacao"/>{{--passo a variacao na sessao junto com a esoclha--}}
+    <div class="{{ $variacao === 'A' ? 'banner-empilhado' : '' }}">
+        <x-cookie-banner :botoes="$botoes" :variacao="$variacao"/>{{--passo a variacao na sessao junto com a esoclha--}}
+    </div>
 @endsection

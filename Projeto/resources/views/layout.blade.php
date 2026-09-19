@@ -53,6 +53,17 @@
             color: #888;
             font-size: .8rem;
         }
+        .banner-empilhado .cookie-banner-botoes,
+        .banner-empilhado.cookie-banner-botoes {
+            display: grid;
+            grid-template-columns: max-content max-content;
+            gap: .6rem;
+        }
+        .banner-empilhado .btn-alto,
+        .banner-empilhado.btn-alto {
+            grid-column: 1 / -1;
+            justify-self: start;
+        }
     </style>
 </head>
 <body>

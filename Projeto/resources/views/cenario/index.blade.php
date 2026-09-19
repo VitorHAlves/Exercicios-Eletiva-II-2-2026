@@ -56,7 +56,7 @@
                 <div class="card-body text-center d-flex flex-column">
                     <h5 class="card-title">Variação C</h5>
                     <p class="card-text text-muted small flex-grow-1">
-                        "Rejeitar" existe, mas menos visível.
+                        
                     </p>
                     <a href="{{ route('cenario.show', 'C') }}" class="btn btn-primary mt-2">
                         Entrar

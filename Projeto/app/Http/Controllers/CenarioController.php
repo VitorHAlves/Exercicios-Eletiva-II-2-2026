@@ -101,6 +101,7 @@ class CenarioController extends Controller
 
     public function comparacao()
     {
-        return view('cenario.comparacao');
+        $variacao = session('cookie_variacao','referencia');
+        return view('cenario.comparacao',compact('variacao'));
     }
 }
