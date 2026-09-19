@@ -65,18 +65,13 @@ class CenarioController extends Controller
     {
         //
     }
-        /**
-     * Show the "Configurar preferências" screen.
-     */
+
     public function configuracoes(Request $request)
     {
         $variacao = $request->query('variacao','referencia');
         return view('cenario.configuracoes',compact('variacao'));
     }
 
-    /**
-     * Store the detailed preferences chosen inside configurações.
-     */
     public function salvarConfiguracoes(Request $request)
     {
         session(['cookie_variacao' => $request->input('variacao')]);
@@ -86,9 +81,7 @@ class CenarioController extends Controller
         return redirect()->route('cenario.reflexao')->with('mensagem', 'Preferências salvas!');
     }
 
-    /**
-     * Display the reflection screen (question after the choice).
-     */
+
     public function reflexao()
     {
         return view('cenario.reflexao');
@@ -98,18 +91,14 @@ class CenarioController extends Controller
         return redirect()->route('cenario.explicacao');
     }
 
-    /**
-     * Display the explanatory screen.
-     */
+
     public function explicacao()
     {
         $variacao = session('cookie_variacao','referencia');//busco a informação da sessão
         return view('cenario.explicacao',compact('variacao'));
     }
 
-    /**
-     * Display the final comparison between interfaces.
-     */
+
     public function comparacao()
     {
         return view('cenario.comparacao');

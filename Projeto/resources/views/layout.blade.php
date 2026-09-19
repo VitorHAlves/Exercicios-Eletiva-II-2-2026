@@ -61,7 +61,16 @@
     </header>
     <main>
         @if(session('mensagem'))
-            <p>{{ session('mensagem') }}</p>
+            <div class="container mt-3">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="alert alert-success alert-dismissible fade show py-2 text-center" role="alert">
+                            {{ session('mensagem') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         @endif
     </main>
     <div class="container py-3">

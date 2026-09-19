@@ -45,7 +45,7 @@
 
                 <div class="d-flex gap-2">
                     <button type="submit" class="btn btn-primary">Salvar preferências</button>
-                    <a href="{{ route('cenario.index') }}" class="btn btn-outline-secondary">Cancelar</a>
+                    <a href="{{ route('cenario.show',$variacao) }}" class="btn btn-outline-secondary">Cancelar</a>
                 </div>
             </form>
         </div>
