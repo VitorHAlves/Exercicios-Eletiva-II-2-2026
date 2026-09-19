@@ -88,6 +88,10 @@ class CenarioController extends Controller
     {
         return view('cenario.reflexao');
     }
+    public function salvarReflexao(Request $request){
+        session(['cookie_reflexao' => $request->input('percepcao')]);
+        return redirect()->route('cenario.explicacao');
+    }
 
     /**
      * Display the explanatory screen.

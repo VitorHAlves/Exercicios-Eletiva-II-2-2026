@@ -6,7 +6,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark mb-4 rounded-3 px-3" style="background: #1a1d29;">
         <div class="container-fluid">
             <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="#">
-                <span style="font-size:1.4rem;">💻</span> DevCentral
+                <span style="font-size:1.4rem;"></span> DevCentral
             </a>
             <ul class="navbar-nav flex-row gap-4 ms-auto">
                 <li class="nav-item"><a class="nav-link text-light-emphasis" href="#">Fóruns</a></li>
@@ -24,7 +24,7 @@
 
     <div class="row">
         <div class="col-lg-8">
-            <h5 class="fw-bold mb-3">🔥 Tópicos em alta</h5>
+            <h5 class="fw-bold mb-3"> Tópicos em alta</h5>
 
             @php
                 $topicos = [
