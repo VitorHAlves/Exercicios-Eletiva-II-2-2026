@@ -10,7 +10,7 @@
 
             <form action="{{ route('cenario.configuracoes.salvar') }}" method="POST">
                 @csrf
-
+                <input type="hidden" name="variacao" value ="{{ $variacao }}">
                 <div class="border rounded-3 p-3 mb-3 bg-white">
                     <div class="form-check form-switch">
                         <input class="form-check-input" type="checkbox" checked disabled>
@@ -21,7 +21,7 @@
 
                 <div class="border rounded-3 p-3 mb-3 bg-white">
                     <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" name="analiticos" value="1" id="analiticos">
+                        <input class="form-check-input" type="checkbox" name="analiticos" value="1" id="analiticos" {{ $variacao === 'B' ? 'checked' : ''}}>
                         <label class="form-check-label fw-semibold" for="analiticos">Analíticos</label>
                     </div>
                     <p class="text-muted small mb-0">Ajudam a entender como você usa o site, de forma anônima.</p>
@@ -29,7 +29,7 @@
 
                 <div class="border rounded-3 p-3 mb-3 bg-white">
                     <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" name="marketing" value="1" id="marketing">
+                        <input class="form-check-input" type="checkbox" name="marketing" value="1" id="marketing" {{ $variacao === 'B' ? 'checked' : ''}}>
                         <label class="form-check-label fw-semibold" for="marketing">Marketing</label>
                     </div>
                     <p class="text-muted small mb-0">Usados para exibir anúncios personalizados em outros sites.</p>
@@ -37,7 +37,7 @@
 
                 <div class="border rounded-3 p-3 mb-4 bg-white">
                     <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" name="personalizacao" value="1" id="personalizacao">
+                        <input class="form-check-input" type="checkbox" name="personalizacao" value="1" id="personalizacao" {{ $variacao === 'B' ? 'checked' : ''}} >
                         <label class="form-check-label fw-semibold" for="personalizacao">Personalização</label>
                     </div>
                     <p class="text-muted small mb-0">Adaptam conteúdos e recomendações ao seu perfil.</p>

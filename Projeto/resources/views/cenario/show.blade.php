@@ -76,6 +76,10 @@
                 ['label' => 'Rejeitar', 'valor' => 'rejeitar', 'destaque' => 'baixo'],
                 ['label' => 'Configurar', 'link' => route('cenario.configuracoes',['variacao'=> $variacao]),'destaque' => 'baixo'],
             ],
+            'B' => [
+                ['label' => 'Aceitar Tudo', 'valor' => 'aceitar', 'destaque' => 'alto'],
+                ['label' => 'Configurar preferências', 'link' => route('cenario.configuracoes', ['variacao' => $variacao]), 'destaque' => 'normal'],
+            ],
             default => [],
         };
     @endphp

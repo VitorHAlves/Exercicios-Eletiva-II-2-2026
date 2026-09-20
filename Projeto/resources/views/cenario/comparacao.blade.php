@@ -44,7 +44,7 @@
     @endphp
 
     <div class="text-center mb-4">
-        <h2 class="fw-bold">⚖️ Comparando as interfaces</h2>
+        <h2 class="fw-bold"> Comparando as interfaces</h2>
         <p class="text-muted">Observe as duas versões abaixo antes de responder.</p>
     </div>
 

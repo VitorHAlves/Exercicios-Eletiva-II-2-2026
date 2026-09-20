@@ -15,8 +15,8 @@
                 ],
             ],
             'B' => [
-                'mecanismo' => 'Obstrução',
-                'texto' => 'A opção "Rejeitar" não aparece no primeiro nível do banner. Para recusar os cookies, o usuário precisa entrar em "Configurar preferências" e navegar mais — exigindo mais esforço do que aceitar.',
+                'mecanismo' => 'Obstrução e Efeito Padrão',
+                'texto' => 'A opção "Rejeitar" não aparece no primeiro nível do banner. Para recusar os cookies, o usuário precisa entrar em "Configurar preferências" e navegar mais, exigindo mais esforço do que aceitar. Além disso, as opções de Analíticos e Marketing já vêm marcadas por padrão dentro das configurações.',
                 'preview' => [
                     ['label' => 'Aceitar Tudo', 'classe' => 'btn-alto'],
                     ['label' => 'Configurar preferências', 'classe' => 'btn-normal'],
