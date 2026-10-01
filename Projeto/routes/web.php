@@ -27,3 +27,13 @@ Route::middleware('auth')->group(function(){//middleware-> processa requisiçõe
     });
     Route::post('/logout', [AuthController::class,'logout']);
 });
+
+Route::get('/register',[AuthController::class, 'showRegisterForm'])->name('register');
+Route::post('/register',[AuthController::class,'register']);
+
+Route::middleware('auth')->group(function(){//middleware-> processa requisições http-> age como um filtro para aplicar lógica
+    Route::get('/dashboard', function(){
+        return view('dashboard');
+    });
+    Route::post('/logout', [AuthController::class,'logout']);
+});

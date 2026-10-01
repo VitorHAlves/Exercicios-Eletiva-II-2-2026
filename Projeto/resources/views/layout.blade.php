@@ -67,9 +67,6 @@
     </style>
 </head>
 <body>
-    <header class="container py-3">
-        <h1>@yield('title','Cenario - Banner de Cookies')</h1>
-    </header>
     <main>
         @if(session('mensagem'))
             <div class="container mt-3">
@@ -88,9 +85,6 @@
         @yield('conteudo','')
     </div>
     
-    <footer class="container text-center py-3" >
-        <p>Disciplina de Programação Web - Cenário sobre Padrões enganosos</p>
-    </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
 </body>
 
