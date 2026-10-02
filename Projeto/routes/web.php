@@ -8,32 +8,24 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/cenario/configuracoes', [CenarioController::class, 'configuracoes'])->name('cenario.configuracoes');
-Route::post('/cenario/configuracoes',[CenarioController::class, 'salvarConfiguracoes'])->name('cenario.configuracoes.salvar');
-Route::get('/cenario/reflexao', [CenarioController::class, 'reflexao'])->name('cenario.reflexao');
-Route::post('/cenario/reflexao',[CenarioController::class,'salvarReflexao'])->name('cenario.reflexao.salvar');
-Route::get('/cenario/explicacao',[CenarioController::class, 'explicacao'])->name('cenario.explicacao');
-Route::get('/cenario/comparacao', [CenarioController::class, 'comparacao'])->name('cenario.comparacao');
-Route::resource('cenario',CenarioController::class);
 
 //Login com breeze
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class,'login']);
-
-Route::middleware('auth')->group(function(){//middleware-> processa requisições http-> age como um filtro para aplicar lógica
+//protejo todas as rotas aqui usando o middleware..
+Route::middleware('auth')->group(function(){//middleware-> não deixa acessar a uma tela antes de passar pela autenticação de login
     Route::get('/dashboard', function(){
         return view('dashboard');
     });
+    Route::get('/cenario/configuracoes', [CenarioController::class, 'configuracoes'])->name('cenario.configuracoes');
+    Route::post('/cenario/configuracoes',[CenarioController::class, 'salvarConfiguracoes'])->name('cenario.configuracoes.salvar');
+    Route::get('/cenario/reflexao', [CenarioController::class, 'reflexao'])->name('cenario.reflexao');
+    Route::post('/cenario/reflexao',[CenarioController::class,'salvarReflexao'])->name('cenario.reflexao.salvar');
+    Route::get('/cenario/explicacao',[CenarioController::class, 'explicacao'])->name('cenario.explicacao');
+    Route::get('/cenario/comparacao', [CenarioController::class, 'comparacao'])->name('cenario.comparacao');
+    Route::resource('cenario',CenarioController::class);
     Route::post('/logout', [AuthController::class,'logout']);
-});
-
-Route::get('/register',[AuthController::class, 'showRegisterForm'])->name('register');
-Route::post('/register',[AuthController::class,'register']);
-
-Route::middleware('auth')->group(function(){//middleware-> processa requisições http-> age como um filtro para aplicar lógica
-    Route::get('/dashboard', function(){
-        return view('dashboard');
-    });
-    Route::post('/logout', [AuthController::class,'logout']);
+    Route::get('/register',[AuthController::class, 'showRegisterForm'])->name('register');
+    Route::post('/register',[AuthController::class,'register']);
 });

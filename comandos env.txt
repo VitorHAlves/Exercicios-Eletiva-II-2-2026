@@ -2,3 +2,5 @@ composer install --ignore-platform-reqs
 cp .env.example .env
 php artisan key:generate
 php artisan migrate
+
+https://drive.google.com/file/d/1q5qvbSAX6bHvdGSuU7edCo0h-7rB7ga0/view?usp=sharing
