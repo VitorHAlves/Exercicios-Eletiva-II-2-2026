@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cenario;
+use App\Models\EscolhaUsuario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CenarioController extends Controller
 {
@@ -28,8 +30,24 @@ class CenarioController extends Controller
      */
     public function store(Request $request)
     {
-        session(['cookie_escolha'=> $request->input('escolha')]);
+        $variacao = $request->input('variacao','A');
+        //defino o id com base na variação
+        $cenarioId = $request->input('cenario_id',($variacao === 'B' ? 2 : 1));
+        //vejo se a ação veio do banner ou do formulário de preferências
+        $acaoTomada = $request->input('escolha') ?? $request->input('acao_tomada') ?? 'configurou_preferencias';
+        //salvo na session
+
         session(['cookie_variacao'=> $request->input('variacao')]);//salvo a variacao junto com a escolha
+        session(['cookie_escolha'=> $acaoTomada]);
+        session(['cookie_preferencias' => $request->all()]);
+        
+        //gravo no mysql com o id tb
+        EscolhaUsuario::create([
+            'user_id' => Auth::id(),
+            'cenario_id' => $cenarioId,
+            'acao_tomada' => $acaoTomada,
+        ]);
+
         return redirect()->route('cenario.reflexao')->with('mensagem','Escolha registrada!');
         
     }
@@ -42,29 +60,6 @@ class CenarioController extends Controller
         return view('cenario.show',compact('variacao'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Cenario $cenario)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Cenario $cenario)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Cenario $cenario)
-    {
-        //
-    }
 
     public function configuracoes(Request $request)
     {
@@ -77,6 +72,12 @@ class CenarioController extends Controller
         session(['cookie_variacao' => $request->input('variacao')]);
         session(['cookie_escolha' => 'configurado']);
         session(['cookie_preferencias' => $request->all()]);
+
+        EscolhaUsuario::create([
+            'user_id' => Auth::id(),
+            'cenario_id' => $request->input('cenario_id',1),//pega o id enviado ou diexa 1 como padrão
+            'acao_tomada' => $request->input('variacao','configurou_preferencias'),
+        ]);
 
         return redirect()->route('cenario.reflexao')->with('mensagem', 'Preferências salvas!');
     }

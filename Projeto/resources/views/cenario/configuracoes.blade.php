@@ -8,8 +8,9 @@
             <h2 class="fw-bold mb-1">🍪 Preferências de cookies</h2>
             <p class="text-muted mb-4">Escolha quais categorias de cookies você permite.</p>
 
-            <form action="{{ route('cenario.configuracoes.salvar') }}" method="POST">
+            <form action="{{ route('cenario.store') }}" method="POST">
                 @csrf
+                <input type ="hidden" name="cenario_id" value="{{ $variacao === 'B' ? 2 : 1 }}">
                 <input type="hidden" name="variacao" value ="{{ $variacao }}">
                 <div class="border rounded-3 p-3 mb-3 bg-white">
                     <div class="form-check form-switch">

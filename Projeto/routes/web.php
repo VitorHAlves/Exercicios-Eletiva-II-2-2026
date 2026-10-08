@@ -21,7 +21,6 @@ Route::middleware('auth')->group(function(){//middleware-> não deixa acessar a 
         return view('dashboard');
     })->name('dashboard');
     Route::get('/cenario/configuracoes', [CenarioController::class, 'configuracoes'])->name('cenario.configuracoes');
-    Route::post('/cenario/configuracoes',[CenarioController::class, 'salvarConfiguracoes'])->name('cenario.configuracoes.salvar');
     Route::get('/cenario/reflexao', [CenarioController::class, 'reflexao'])->name('cenario.reflexao');
     Route::post('/cenario/reflexao',[CenarioController::class,'salvarReflexao'])->name('cenario.reflexao.salvar');
     Route::get('/cenario/explicacao',[CenarioController::class, 'explicacao'])->name('cenario.explicacao');
