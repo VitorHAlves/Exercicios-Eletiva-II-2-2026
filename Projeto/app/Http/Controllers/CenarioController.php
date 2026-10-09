@@ -30,23 +30,22 @@ class CenarioController extends Controller
      */
     public function store(Request $request)
     {
-        $variacao = $request->input('variacao','A');
-        //defino o id com base na variação
-        $cenarioId = $request->input('cenario_id',($variacao === 'B' ? 2 : 1));
-        //vejo se a ação veio do banner ou do formulário de preferências
-        $acaoTomada = $request->input('escolha') ?? $request->input('acao_tomada') ?? 'configurou_preferencias';
+        $variacao = $request->input('variacao','referencia');
+        $acaoTomada = $request->input('escolha','configuracao_preferencias');
+
+        $cenario = Cenario::where('variacao', $variacao)->firstOrFail();
         //salvo na session
 
-        session(['cookie_variacao'=> $request->input('variacao')]);//salvo a variacao junto com a escolha
-        session(['cookie_escolha'=> $acaoTomada]);
-        session(['cookie_preferencias' => $request->all()]);
+        session(['cookie_variacao'=>$variacao, 'cookie_escolha' => $acaoTomada]);
         
-        //gravo no mysql com o id tb
-        EscolhaUsuario::create([
+        
+        $registro = EscolhaUsuario::create([
             'user_id' => Auth::id(),
-            'cenario_id' => $cenarioId,
+            'cenario_id' => $cenario->id,
             'acao_tomada' => $acaoTomada,
         ]);
+        //guardo o id para atualizar a reflexão no mesmo registro dps
+        session(['escolha_id' => $registro->id]);
 
         return redirect()->route('cenario.reflexao')->with('mensagem','Escolha registrada!');
         
@@ -89,6 +88,11 @@ class CenarioController extends Controller
     }
     public function salvarReflexao(Request $request){
         session(['cookie_reflexao' => $request->input('percepcao')]);
+
+        EscolhaUsuario::where('id', session('escolha_id'))
+            ->where('user_id', Auth::id())
+            ->update(['reflexao' => $request->input('percepcao')]);
+    
         return redirect()->route('cenario.explicacao');
     }
 

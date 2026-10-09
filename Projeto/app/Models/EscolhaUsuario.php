@@ -12,6 +12,7 @@ class EscolhaUsuario extends Model
         'user_id',
         'cenario_id',
         'acao_tomada',
+        'reflexao',
     ];
 
     public function cenario()

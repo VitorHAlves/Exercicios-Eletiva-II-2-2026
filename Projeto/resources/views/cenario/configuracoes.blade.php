@@ -10,7 +10,6 @@
 
             <form action="{{ route('cenario.store') }}" method="POST">
                 @csrf
-                <input type ="hidden" name="cenario_id" value="{{ $variacao === 'B' ? 2 : 1 }}">
                 <input type="hidden" name="variacao" value ="{{ $variacao }}">
                 <div class="border rounded-3 p-3 mb-3 bg-white">
                     <div class="form-check form-switch">

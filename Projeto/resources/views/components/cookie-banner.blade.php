@@ -23,7 +23,6 @@
                         <form action="{{ route('cenario.store') }}" method="POST" style="display:contents">
                             @csrf
                             {{-- se 'A' envia 1, se 'B' envia 2--}}
-                            <input type="hidden" name="cenario_id" value="{{ $variacao === 'B' ? 2 : 1 }}">
                             <input type="hidden" name="variacao" value="{{ $variacao }}">{{--recebo e envio junto com o form--}}
                             <button type="submit" name="escolha" value="{{ $botao['valor'] }}" class="btn-{{ $botao['destaque'] ?? 'normal' }}">
                                 {{ $botao['label'] }}
