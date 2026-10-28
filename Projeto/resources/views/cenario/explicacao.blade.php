@@ -23,12 +23,14 @@
                 ],
             ],
             'C' => [
-                'mecanismo' => 'Interferência visual e dificuldade de localização',
-                'texto' => 'A opção de recusa existe ("Não desejo aceitar"), mas fica menos visível — menor, sem contraste e mais distante das outras. Isso dificulta identificá-la como uma alternativa real.',
+                'mecanismo' => 'Confirmshaming',
+                'texto' => 'As opções usam uma linguagem que associa aceitar cookies a uma escolha positiva e rejeitar a uma experiência inferior. Isso
+                pode provocar culpa ou um receio de perder benefícios, pressionando o usuário a aceitar. Rejeitar cookies opcionais deve preservar as funcionalidades
+                essenciais do site.',
                 'preview' => [
-                    ['label' => 'Aceitar Tudo', 'classe' => 'btn-alto'],
-                    ['label' => 'Configurar', 'classe' => 'btn-normal'],
-                    ['label' => 'Não desejo aceitar', 'classe' => 'btn-baixo'],
+                    ['label' => 'Sim, quero melhorar minha experiência', 'classe' => 'btn-normal'],
+                    ['label' => 'Não, prefiro uma experiência limitada', 'classe' => 'btn-normal'],
+                    ['label' => 'Configurar preferências', 'classe' => 'btn-normal'],
                 ],
             ],
             default => [

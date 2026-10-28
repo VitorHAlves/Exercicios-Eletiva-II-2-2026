@@ -1,6 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.31, for Win64 (x86_64)
+CREATE DATABASE  IF NOT EXISTS `projeto` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `projeto`;
+-- MySQL dump 10.13  Distrib 8.0.29, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: projeto
+-- Host: localhost    Database: projeto
 -- ------------------------------------------------------
 -- Server version	8.4.3
 
@@ -23,8 +25,8 @@ DROP TABLE IF EXISTS `cache`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cache` (
-  `key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `value` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `value` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `expiration` bigint NOT NULL,
   PRIMARY KEY (`key`),
   KEY `cache_expiration_index` (`expiration`)
@@ -48,8 +50,8 @@ DROP TABLE IF EXISTS `cache_locks`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cache_locks` (
-  `key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `owner` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `owner` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `expiration` bigint NOT NULL,
   PRIMARY KEY (`key`),
   KEY `cache_locks_expiration_index` (`expiration`)
@@ -66,6 +68,34 @@ LOCK TABLES `cache_locks` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `cenario_mecanismo`
+--
+
+DROP TABLE IF EXISTS `cenario_mecanismo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `cenario_mecanismo` (
+  `cenario_id` int NOT NULL,
+  `mecanismo_id` bigint unsigned NOT NULL,
+  `explicacao` text NOT NULL,
+  PRIMARY KEY (`cenario_id`,`mecanismo_id`),
+  KEY `mecanismo_id` (`mecanismo_id`),
+  CONSTRAINT `cenario_mecanismo_ibfk_1` FOREIGN KEY (`cenario_id`) REFERENCES `cenarios` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `cenario_mecanismo_ibfk_2` FOREIGN KEY (`mecanismo_id`) REFERENCES `mecanismos` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cenario_mecanismo`
+--
+
+LOCK TABLES `cenario_mecanismo` WRITE;
+/*!40000 ALTER TABLE `cenario_mecanismo` DISABLE KEYS */;
+INSERT INTO `cenario_mecanismo` VALUES (2,1,'O botão de aceitar recebe mais destaque visual que as alternativas.'),(3,2,'A opção de rejeitar não aparece no primeiro nível: é necessário abrir as configurações.'),(3,3,'As opções de cookies opcionais aparecem previamente selecionadas nas configurações.'),(4,4,'O texto dos botões associa aceitar a uma experiência melhor e rejeitar a uma experiência limitada, pressionando a decisão.');
+/*!40000 ALTER TABLE `cenario_mecanismo` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `cenarios`
 --
 
@@ -79,7 +109,7 @@ CREATE TABLE `cenarios` (
   `mecanismo` varchar(50) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `variacao` (`variacao`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -88,7 +118,7 @@ CREATE TABLE `cenarios` (
 
 LOCK TABLES `cenarios` WRITE;
 /*!40000 ALTER TABLE `cenarios` DISABLE KEYS */;
-INSERT INTO `cenarios` VALUES (1,'referencia','Versão de Referência','nenhum'),(2,'A','Destaque para aceitar','interferencia_visual'),(3,'B','Aceitar + configurar','obstrucao_preselecao');
+INSERT INTO `cenarios` VALUES (1,'referencia','Versão de Referência','nenhum'),(2,'A','Destaque para aceitar','interferencia_visual'),(3,'B','Aceitar + configurar','obstrucao_preselecao'),(4,'C','Linguagem persuasiva','Confirmshaming');
 /*!40000 ALTER TABLE `cenarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -103,14 +133,14 @@ CREATE TABLE `escolha_usuarios` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` bigint unsigned DEFAULT NULL,
   `cenario_id` bigint unsigned NOT NULL,
-  `acao_tomada` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `reflexao` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `acao_tomada` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `reflexao` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `escolha_usuarios_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -119,7 +149,7 @@ CREATE TABLE `escolha_usuarios` (
 
 LOCK TABLES `escolha_usuarios` WRITE;
 /*!40000 ALTER TABLE `escolha_usuarios` DISABLE KEYS */;
-INSERT INTO `escolha_usuarios` VALUES (1,1,2,'rejeitar',NULL,'2026-10-09 03:50:33','2026-10-09 03:50:33'),(2,1,2,'rejeitar',NULL,'2026-10-09 03:55:17','2026-10-09 03:55:17'),(3,1,2,'aceitar','uma_chamou_atencao','2026-10-09 03:55:22','2026-10-09 03:55:29');
+INSERT INTO `escolha_usuarios` VALUES (1,1,2,'rejeitar',NULL,'2026-10-09 03:50:33','2026-10-09 03:50:33'),(2,1,2,'rejeitar',NULL,'2026-10-09 03:55:17','2026-10-09 03:55:17'),(3,1,2,'aceitar','uma_chamou_atencao','2026-10-09 03:55:22','2026-10-09 03:55:29'),(4,1,4,'rejeitar','dificil_localizar','2026-10-29 01:33:37','2026-10-29 01:33:41'),(5,1,4,'aceitar','mais_etapas','2026-10-29 01:42:39','2026-10-29 01:42:41');
 /*!40000 ALTER TABLE `escolha_usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -132,11 +162,11 @@ DROP TABLE IF EXISTS `failed_jobs`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `failed_jobs` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `connection` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `uuid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `connection` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`),
@@ -161,13 +191,13 @@ DROP TABLE IF EXISTS `job_batches`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `job_batches` (
-  `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `total_jobs` int NOT NULL,
   `pending_jobs` int NOT NULL,
   `failed_jobs` int NOT NULL,
-  `failed_job_ids` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `options` mediumtext COLLATE utf8mb4_unicode_ci,
+  `failed_job_ids` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `options` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `cancelled_at` int DEFAULT NULL,
   `created_at` int NOT NULL,
   `finished_at` int DEFAULT NULL,
@@ -193,8 +223,8 @@ DROP TABLE IF EXISTS `jobs`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `jobs` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `queue` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `attempts` smallint unsigned NOT NULL,
   `reserved_at` int unsigned DEFAULT NULL,
   `available_at` int unsigned NOT NULL,
@@ -214,6 +244,32 @@ LOCK TABLES `jobs` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `mecanismos`
+--
+
+DROP TABLE IF EXISTS `mecanismos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `mecanismos` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `nome` varchar(100) NOT NULL,
+  `descricao` text NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `nome` (`nome`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `mecanismos`
+--
+
+LOCK TABLES `mecanismos` WRITE;
+/*!40000 ALTER TABLE `mecanismos` DISABLE KEYS */;
+INSERT INTO `mecanismos` VALUES (1,'Interferência visual','Usa diferenças de destaque visual para favorecer uma opção.'),(2,'Obstrução','Cria dificuldades ou etapas adicionais para realizar uma escolha.'),(3,'Efeito padrão','Deixa opções previamente selecionadas, favorecendo sua manutenção.'),(4,'Confirmshaming','Usa linguagem que provoca culpa ou constrangimento para influenciar uma escolha.');
+/*!40000 ALTER TABLE `mecanismos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `migrations`
 --
 
@@ -222,7 +278,7 @@ DROP TABLE IF EXISTS `migrations`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `migrations` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -246,8 +302,8 @@ DROP TABLE IF EXISTS `password_reset_tokens`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `password_reset_tokens` (
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -270,11 +326,11 @@ DROP TABLE IF EXISTS `sessions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `sessions` (
-  `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id` bigint unsigned DEFAULT NULL,
-  `ip_address` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_agent` text COLLATE utf8mb4_unicode_ci,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ip_address` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `user_agent` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `last_activity` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `sessions_user_id_index` (`user_id`),
@@ -288,7 +344,7 @@ CREATE TABLE `sessions` (
 
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
-INSERT INTO `sessions` VALUES ('MdFvCCPmqd7rVLEVrvloSAKvGQfDCtX1CxU7eV5N',1,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36','eyJfdG9rZW4iOiJhcjVvejk5RlZ1VnFJcmpIU1hKOGZWV3ZBb2hEMVZrSWo1Qkt5VW9vIiwiX2ZsYXNoIjp7Im9sZCI6W10sIm5ldyI6W119LCJfcHJldmlvdXMiOnsidXJsIjoiaHR0cDpcL1wvMTI3LjAuMC4xOjgwMDBcL2NlbmFyaW8iLCJyb3V0ZSI6ImNlbmFyaW8uaW5kZXgifSwibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiOjEsImNvb2tpZV92YXJpYWNhbyI6IkEiLCJjb29raWVfZXNjb2xoYSI6ImFjZWl0YXIiLCJlc2NvbGhhX2lkIjozLCJjb29raWVfcmVmbGV4YW8iOiJ1bWFfY2hhbW91X2F0ZW5jYW8ifQ==',1791507333);
+INSERT INTO `sessions` VALUES ('2GJXdPpPApdD2frp2U0CBAtB16ccYTnVha0Y0hTM',1,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36','eyJfdG9rZW4iOiJYWEJxT1Z0eFZOWFE5RDVyWHJSMkZQdzV2TVJubUZrNTlBdXY0SDRnIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cLzEyNy4wLjAuMTo4MDAwXC9jZW5hcmlvIiwicm91dGUiOiJjZW5hcmlvLmluZGV4In0sIl9mbGFzaCI6eyJvbGQiOltdLCJuZXciOltdfSwibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiOjEsImNvb2tpZV92YXJpYWNhbyI6IkMiLCJjb29raWVfZXNjb2xoYSI6ImFjZWl0YXIiLCJlc2NvbGhhX2lkIjo1LCJjb29raWVfcmVmbGV4YW8iOiJtYWlzX2V0YXBhcyJ9',1793227376),('MdFvCCPmqd7rVLEVrvloSAKvGQfDCtX1CxU7eV5N',1,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36','eyJfdG9rZW4iOiJhcjVvejk5RlZ1VnFJcmpIU1hKOGZWV3ZBb2hEMVZrSWo1Qkt5VW9vIiwiX2ZsYXNoIjp7Im9sZCI6W10sIm5ldyI6W119LCJfcHJldmlvdXMiOnsidXJsIjoiaHR0cDpcL1wvMTI3LjAuMC4xOjgwMDBcL2NlbmFyaW8iLCJyb3V0ZSI6ImNlbmFyaW8uaW5kZXgifSwibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiOjEsImNvb2tpZV92YXJpYWNhbyI6IkEiLCJjb29raWVfZXNjb2xoYSI6ImFjZWl0YXIiLCJlc2NvbGhhX2lkIjozLCJjb29raWVfcmVmbGV4YW8iOiJ1bWFfY2hhbW91X2F0ZW5jYW8ifQ==',1791507333);
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -301,11 +357,11 @@ DROP TABLE IF EXISTS `users`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remember_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -332,4 +388,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-10-08 21:59:05
+-- Dump completed on 2026-10-28 20:18:54

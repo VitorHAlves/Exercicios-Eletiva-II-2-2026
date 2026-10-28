@@ -25,9 +25,9 @@
             'C' => [
                 'label' => 'Interface que você utilizou',
                 'preview' => [
-                    ['label' => 'ACEITAR TUDO', 'classe' => 'btn-alto'],
-                    ['label' => 'Configurar', 'classe' => 'btn-normal'],
-                    ['label' => 'Não desejo aceitar', 'classe' => 'btn-baixo'],
+                    ['label' => 'Sim, quero melhorar minha experiência', 'classe' => 'btn-normal'],
+                    ['label' => 'Não, prefiro uma experiência limitada', 'classe' => 'btn-normal'],
+                    ['label' => 'Configurar preferências', 'classe' => 'btn-normal'],
                 ],
                 'empilhado' => false,
             ],

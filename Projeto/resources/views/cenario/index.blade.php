@@ -58,6 +58,9 @@
                     <p class="card-text text-muted small flex-grow-1">
                         
                     </p>
+                    <p class="card-text text-muted small flex-grow-1">
+                        Utilização de uma linguagem persuasiva.
+                    </p>
                     <a href="{{ route('cenario.show', 'C') }}" class="btn btn-primary mt-2">
                         Entrar
                     </a>

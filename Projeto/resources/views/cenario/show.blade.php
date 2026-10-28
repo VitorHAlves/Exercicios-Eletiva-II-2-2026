@@ -80,6 +80,12 @@
                 ['label' => 'Aceitar Tudo', 'valor' => 'aceitar', 'destaque' => 'alto'],
                 ['label' => 'Configurar preferências', 'link' => route('cenario.configuracoes', ['variacao' => $variacao]), 'destaque' => 'normal'],
             ],
+            'C' => [
+                ['label' => 'Sim, quero melhorar minha experiência','valor' => 'aceitar','destaque' => 'normal'],
+                ['label' => 'Não, quero ter uma experiência limitada','valor' => 'rejeitar','destaque' => 'normal'],
+                ['label' => 'Configurar preferências','link' => route('cenario.configuracoes',['variacao' => $variacao]),'destaque' => 'normal'],
+            ],
+
             default => [],
         };
     @endphp
