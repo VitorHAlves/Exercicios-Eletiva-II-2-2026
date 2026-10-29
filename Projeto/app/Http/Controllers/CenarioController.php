@@ -98,9 +98,12 @@ class CenarioController extends Controller
 
 
     public function explicacao()
-    {
-        $variacao = session('cookie_variacao','referencia');//busco a informação da sessão
-        return view('cenario.explicacao',compact('variacao'));
+    {    
+        $variacao = session('cookie_variacao', 'referencia');    
+        $cenario = Cenario::with('mecanismos') ->where('variacao', $variacao)->firstOrFail();
+        
+        return view('cenario.explicacao', compact('variacao', 'cenario'));
+        
     }
 
 

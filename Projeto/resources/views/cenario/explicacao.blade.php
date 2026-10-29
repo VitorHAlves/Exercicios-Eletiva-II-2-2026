@@ -48,7 +48,6 @@
     <div class="row justify-content-center">
         <div class="col-md-7">
             <h2 class="fw-bold mb-1"> O que estava acontecendo</h2>
-            <span class="badge bg-primary-subtle text-primary-emphasis mb-3">{{ $info['mecanismo'] }}</span>
 
             <div class="border rounded-3 p-3 mb-3 bg-white">
                 <p class="text-muted small mb-2">Representação do banner que você utilizou:</p>
@@ -59,7 +58,14 @@
                 </div>
             </div>
 
-            <p>{{ $info['texto'] }}</p>
+            @forelse ($cenario->mecanismos as $mecanismo)
+                <div class="mb-3">
+                    <h3 class="h5">{{ $mecanismo->nome }}</h3>
+                    <p>{{ $mecanismo->pivot->explicacao }}</p>
+                </div>
+                @empty
+                    <p> Esta versão apresenta alternativas equilibradas,sem mecanismos de padrões enganosos associados.</p>
+            @endforelse
 
             <div class="alert alert-secondary mt-4">
                  Ao analisar banners de cookies, observe se as alternativas possuem condições semelhantes de destaque e acesso.
