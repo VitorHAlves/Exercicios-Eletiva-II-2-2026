@@ -3,39 +3,73 @@
 @section('titulo', 'Reflexão')
 
 @section('conteudo')
-    <div class="row justify-content-center">
-        <div class="col-md-7 text-center">
-            <span style="font-size:2.5rem;"></span>
-            <h2 class="fw-bold mb-1">O que você percebeu?</h2>
-            <p class="text-muted mb-4">Antes de continuar, pense sobre a interface que você acabou de utilizar.</p>
+    @php
+        $ehC = session('cookie_variacao') === 'C';
 
-            <form action="{{ route('cenario.reflexao.salvar') }}" method="POST" class="text-start">
+        $pergunta = $ehC
+            ? 'Como você percebeu a linguagem usada nas opções?'
+            : 'Qual aspecto mais chamou sua atenção ao escolher?';
+
+        $opcoes = $ehC
+            ? [
+                'aceitar_beneficios' => 'Aceitar pareceu trazer benefícios.',
+                'recusar_desvantagens' => 'Recusar pareceu trazer desvantagens.',
+                'linguagem_neutra' => 'As duas opções pareceram neutras.',
+                'nao_observou_texto' => 'Não prestei atenção ao texto.',
+                'nao_sei' => 'Não sei dizer.',
+            ]
+            : [
+                'destaque_visual' => 'O destaque visual de uma das opções.',
+                'localizacao_opcao' => 'A facilidade ou dificuldade para encontrar uma opção.',
+                'quantidade_etapas' => 'A quantidade de etapas para concluir minha escolha.',
+                'opcoes_semelhantes' => 'As opções pareceram semelhantes em destaque e acesso.',
+                'nao_sei' => 'Não sei dizer.',
+            ];
+    @endphp
+
+    <div class="row justify-content-center">
+        <div class="col-md-7">
+            <h2 class="fw-bold mb-2 text-center">O que você percebeu?</h2>
+
+            <p class="text-muted mb-4 text-center">
+                Antes de continuar, pense sobre a interface que você acabou de utilizar.
+                Não há resposta certa ou errada nesta etapa.
+            </p>
+
+            <form action="{{ route('cenario.reflexao.salvar') }}" method="POST">
                 @csrf
 
-                <div class="list-group mb-4">
-                    <label class="list-group-item">
-                        <input class="form-check-input me-2" type="radio" name="percepcao" value="mesmo_destaque" required>
-                        As opções receberam o mesmo destaque.
-                    </label>
-                    <label class="list-group-item">
-                        <input class="form-check-input me-2" type="radio" name="percepcao" value="uma_chamou_atencao">
-                        Uma opção chamou mais minha atenção.
-                    </label>
-                    <label class="list-group-item">
-                        <input class="form-check-input me-2" type="radio" name="percepcao" value="dificil_localizar">
-                        Foi mais difícil localizar uma alternativa.
-                    </label>
-                    <label class="list-group-item">
-                        <input class="form-check-input me-2" type="radio" name="percepcao" value="mais_etapas">
-                        Foi necessário realizar mais etapas para chegar a determinada opção.
-                    </label>
-                    <label class="list-group-item">
-                        <input class="form-check-input me-2" type="radio" name="percepcao" value="sem_diferenca">
-                        Não percebi diferença.
-                    </label>
-                </div>
+                <fieldset>
+                    <legend class="h5 mb-2">{{ $pergunta }}</legend>
 
-                <button type="submit" class="btn btn-primary w-100">Continuar</button>
+                    <p class="text-muted small mb-3">
+                        Escolha a alternativa que melhor representa sua percepção.
+                    </p>
+
+                    <div class="list-group mb-4">
+                        @foreach ($opcoes as $valor => $texto)
+                            <label class="list-group-item">
+                                <input
+                                    class="form-check-input me-2"
+                                    type="radio"
+                                    name="percepcao"
+                                    value="{{ $valor }}"
+                                    @checked(old('percepcao') === $valor)
+                                    required
+                                >
+                                {{ $texto }}
+                            </label>
+                        @endforeach
+                    </div>
+                </fieldset>
+
+                @error('percepcao')
+                    <p class="text-danger small">{{ $message }}</p>
+                @enderror
+
+                <button type="submit" class="btn btn-primary w-100">
+                    Continuar
+                </button>
             </form>
         </div>
     </div>

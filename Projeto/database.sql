@@ -1,4 +1,5 @@
-CREATE DATABASE  IF NOT EXISTS `projeto` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+SET FOREIGN_KEY_CHECKS = 0;
+CREATE DATABASE  IF NOT EXISTS `projeto` DEFAULT CHARACTER SET utf8mb4;
 USE `projeto`;
 -- MySQL dump 10.13  Distrib 8.0.29, for Win64 (x86_64)
 --
@@ -82,7 +83,7 @@ CREATE TABLE `cenario_mecanismo` (
   KEY `mecanismo_id` (`mecanismo_id`),
   CONSTRAINT `cenario_mecanismo_ibfk_1` FOREIGN KEY (`cenario_id`) REFERENCES `cenarios` (`id`) ON DELETE CASCADE,
   CONSTRAINT `cenario_mecanismo_ibfk_2` FOREIGN KEY (`mecanismo_id`) REFERENCES `mecanismos` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -109,7 +110,7 @@ CREATE TABLE `cenarios` (
   `mecanismo` varchar(50) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `variacao` (`variacao`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -256,7 +257,7 @@ CREATE TABLE `mecanismos` (
   `descricao` text NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nome` (`nome`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -389,3 +390,4 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2026-10-28 20:18:54
+SET FOREIGN_KEY_CHECKS = 1;

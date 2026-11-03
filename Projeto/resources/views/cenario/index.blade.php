@@ -3,69 +3,84 @@
 @section('titulo', 'Lobby de Cenários')
 
 @section('conteudo')
+    @php
+        $cartoes = [
+            [
+                'variacao' => 'referencia',
+                'titulo' => 'Versão de Referência',
+                'descricao' => 'Alternativas com destaque e acesso equilibrados.',
+            ],
+            [
+                'variacao' => 'A',
+                'titulo' => 'Variação A',
+                'descricao' => 'Destaque para "Aceitar Tudo".',
+            ],
+            [
+                'variacao' => 'B',
+                'titulo' => 'Variação B',
+                'descricao' => '"Rejeitar" não aparece no primeiro nível.',
+            ],
+            [
+                'variacao' => 'C',
+                'titulo' => 'Variação C',
+                'descricao' => 'Observe como a linguagem das opções pode influenciar sua decisão.',
+            ],
+        ];
+    @endphp
+
     <div class="text-center mb-5">
         <h1 class="fw-bold">🍪 Lobby de Cenários</h1>
-        <p class="text-muted">Escolha uma versão do banner de cookies para observar</p>
+        <p class="text-muted">
+            Escolha uma versão do banner de cookies para observar.
+        </p>
     </div>
 
     <div class="row g-4 justify-content-center">
-        <div class="col-md-4">
-            <div class="card h-100 shadow-sm border-0">
-                <div class="card-body text-center d-flex flex-column">
-                    <h5 class="card-title">Versão de Referência</h5>
-                    <p class="card-text text-muted small flex-grow-1">
-                        Alternativas com destaque e acesso equilibrados.
-                    </p>
-                    <a href="{{ route('cenario.show', 'referencia') }}" class="btn btn-outline-primary mt-2">
-                        Entrar
-                    </a>
-                </div>
-            </div>
-        </div>
+        @foreach ($cartoes as $cartao)
+            @php
+                $respondido = in_array(
+                    $cartao['variacao'],
+                    $variacoesRespondidas
+                );
+            @endphp
 
-        <div class="col-md-4">
-            <div class="card h-100 shadow-sm border-0">
-                <div class="card-body text-center d-flex flex-column">
-                    <h5 class="card-title">Variação A</h5>
-                    <p class="card-text text-muted small flex-grow-1">
-                        Destaque para "Aceitar Tudo".
-                    </p>
-                    <a href="{{ route('cenario.show', 'A') }}" class="btn btn-primary mt-2">
-                        Entrar
-                    </a>
-                </div>
-            </div>
-        </div>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body text-center d-flex flex-column">
+                        <h5 class="card-title">
+                            {{ $cartao['titulo'] }}
+                        </h5>
 
-        <div class="col-md-4">
-            <div class="card h-100 shadow-sm border-0">
-                <div class="card-body text-center d-flex flex-column">
-                    <h5 class="card-title">Variação B</h5>
-                    <p class="card-text text-muted small flex-grow-1">
-                        "Rejeitar" some do primeiro nível.
-                    </p>
-                    <a href="{{ route('cenario.show', 'B') }}" class="btn btn-primary mt-2">
-                        Entrar
-                    </a>
-                </div>
-            </div>
-        </div>
+                        <p class="card-text text-muted small flex-grow-1">
+                            {{ $cartao['descricao'] }}
+                        </p>
 
-        <div class="col-md-4">
-            <div class="card h-100 shadow-sm border-0">
-                <div class="card-body text-center d-flex flex-column">
-                    <h5 class="card-title">Variação C</h5>
-                    <p class="card-text text-muted small flex-grow-1">
-                        
-                    </p>
-                    <p class="card-text text-muted small flex-grow-1">
-                        Utilização de uma linguagem persuasiva.
-                    </p>
-                    <a href="{{ route('cenario.show', 'C') }}" class="btn btn-primary mt-2">
-                        Entrar
-                    </a>
+                        <a
+                            href="{{ route('cenario.show', $cartao['variacao']) }}"
+                            class="btn btn-primary mt-2"
+                        >
+                            Iniciar cenário
+                        </a>
+
+                        @if ($respondido)
+                            <a
+                                href="{{ route('cenario.show', $cartao['variacao']) }}"
+                                class="btn btn-outline-primary mt-2"
+                            >
+                                Refazer cenário
+                            </a>
+                        @else
+                            <button
+                                type="button"
+                                class="btn btn-outline-primary mt-2"
+                                disabled
+                            >
+                                Refazer cenário
+                            </button>
+                        @endif
+                    </div>
                 </div>
             </div>
-        </div>
+        @endforeach
     </div>
 @endsection

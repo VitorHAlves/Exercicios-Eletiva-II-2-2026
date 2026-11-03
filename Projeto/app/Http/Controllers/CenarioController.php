@@ -14,9 +14,17 @@ class CenarioController extends Controller
      */
     public function index()
     {
-        return view('cenario.index');
-    }
+        $respondidos = EscolhaUsuario::where('user_id', Auth::id())
+            ->pluck('cenario_id');//pluck pega os valores de uma coluna
+            //pega o id dos cenários que o usuário respondeu
 
+            //dps busca esses cenáros e pega o valor da coluna variacao
+        $variacoesRespondidas = Cenario::whereIn('id', $respondidos)
+            ->pluck('variacao')
+            ->all();
+            //ai da pra saber qual o usuário ja respondeu,para mudar o botão de alterar
+        return view('cenario.index', compact('variacoesRespondidas'));
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -30,25 +38,42 @@ class CenarioController extends Controller
      */
     public function store(Request $request)
     {
-        $variacao = $request->input('variacao','referencia');
-        $acaoTomada = $request->input('escolha','configuracao_preferencias');
+        //recebo a variação e a esoclha pelo formulario
+        $variacao = $request->input('variacao', 'referencia');
+        $acaoTomada = $request->input('escolha', 'configuracao_preferencias');
 
+        //busco o cenario pela variação
         $cenario = Cenario::where('variacao', $variacao)->firstOrFail();
-        //salvo na session
 
-        session(['cookie_variacao'=>$variacao, 'cookie_escolha' => $acaoTomada]);
-        
-        
-        $registro = EscolhaUsuario::create([
-            'user_id' => Auth::id(),
-            'cenario_id' => $cenario->id,
-            'acao_tomada' => $acaoTomada,
+        //procura uma resposta desse usuário para esse cenario
+        //se encontrar atualiza se nao cria um registro
+        $registro = EscolhaUsuario::updateOrCreate(
+            //primeiro array identifica o registro, o segundo é os dados que vao ser salvos
+            [
+                'user_id' => Auth::id(),
+                'cenario_id' => $cenario->id,
+            ],
+            [
+                //salva a nova escolha e limpa a reflexao anterior
+                'acao_tomada' => $acaoTomada,
+                'reflexao' => null,
+            ]
+        );
+        //remove informações da tentativa anterior guardadas na sessão
+        session()->forget([
+            'cookie_reflexao',
+            'cookie_preferencias',
         ]);
-        //guardo o id para atualizar a reflexão no mesmo registro dps
-        session(['escolha_id' => $registro->id]);
+        //guarda os dados da tentativa atual
+        session([
+            'cookie_variacao' => $variacao,
+            'cookie_escolha' => $acaoTomada,
+            'escolha_id' => $registro->id,
+        ]);
 
-        return redirect()->route('cenario.reflexao')->with('mensagem','Escolha registrada!');
-        
+        return redirect()
+            ->route('cenario.reflexao')
+            ->with('mensagem', 'Escolha registrada!');
     }
 
     /**
